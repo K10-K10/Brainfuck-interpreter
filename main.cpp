@@ -3,14 +3,31 @@
 #include <cstdlib>
 #include <map>
 #include <vector>
+#include <fstream>
 
-int main()
+int main(int argc, char **argv)
 {
+  if (argc != 2)
+  {
+    std::cerr << "Usage: " << argv[0] << " file.bf" << std::endl;
+    return 1;
+  }
+
+  std::ifstream file(argv[1]);
+  if (!file.is_open())
+  {
+    std::cerr << "Cannot open file: " << argv[1] << std::endl;
+    return 1;
+  }
+
+  std::string code, line;
+  while (std::getline(file, line))
+  {
+    code += line;
+  }
   int *anker = (int *)calloc(30000, sizeof(int));
   int *ptr = anker;
 
-  std::string code;
-  std::cin >> code;
   int code_size = code.size();
 
   std::map<int, int> loop_map;
