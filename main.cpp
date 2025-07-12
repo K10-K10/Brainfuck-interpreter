@@ -1,82 +1,90 @@
 #include <iostream>
-#include <vector>
-#include <utility>
 #include <string>
+#include <cstdlib>
 #include <map>
-#include <climits>
+#include <vector>
 
-class Code_Compiler
+int main()
 {
-public:
-  void Show_pointer_list(std::vector<int>, int);
-};
+  int *anker = (int *)calloc(30000, sizeof(int));
+  int *ptr = anker;
 
-void Code_Compiler::Show_pointer_list(std::vector<int> bit_list, int max_pointer)
-{
-  for (int i = 0; i < max_pointer + 1; i++)
-  {
-    std::cout << i << ":" << bit_list[i] << " |";
-  }
-  std::cout << std::endl;
-}
-
-int main(void)
-{
-  Code_Compiler comp;
-  std::string code = "";
+  std::string code;
   std::cin >> code;
   int code_size = code.size();
-  std::vector<int> bit_list(100, 0);
-  int pointer = 0;
-  int max_pointer_value = 0;
-  char current_char;
+
+  std::map<int, int> loop_map;
+  std::vector<int> loop_stack;
+
   for (int i = 0; i < code_size; i++)
   {
-    current_char = code[i];
-    switch (current_char)
+    if (code[i] == '[')
     {
-    case '[':
-    case ']':
-    case '+':
-      bit_list[pointer]++;
-      break;
-    case '-':
-      if (bit_list[pointer] >= 1)
+      loop_stack.push_back(i);
+    }
+    else if (code[i] == ']')
+    {
+      if (loop_stack.empty())
       {
-        bit_list[pointer]--;
+        std::cerr << "Unmatched ']' at position " << i << std::endl;
+        exit(1);
       }
-      else
-      {
-        std::cout << "No." << pointer << "'s value under 0 in line" << ++i << std::endl;
-        break;
-      }
-      break;
+      int open = loop_stack.back();
+      loop_stack.pop_back();
+      loop_map[open] = i;
+      loop_map[i] = open;
+    }
+  }
+
+  if (!loop_stack.empty())
+  {
+    std::cerr << "Unmatched '[' at position " << loop_stack.back() << std::endl;
+    exit(1);
+  }
+
+  for (int i = 0; i < code_size; i++)
+  {
+    char c = code[i];
+    switch (c)
+    {
     case '>':
-      pointer++;
-      max_pointer_value = std::max(pointer, max_pointer_value);
+      ptr++;
       break;
     case '<':
-      if (pointer >= 1)
-      {
-        pointer--;
-      }
-      else
-      {
-        std::cout << "They cant find Pointer in line" << ++i << std::endl;
-        break;
-      }
+      ptr--;
+      break;
+    case '+':
+      (*ptr)++;
+      break;
+    case '-':
+      if (*ptr > 0)
+        (*ptr)--;
       break;
     case '.':
-      std::cout << char(bit_list[pointer]);
+      std::cout << char(*ptr);
       break;
     case ',':
-      char input_char;
-      bit_list[pointer] = int(input_char);
+      char in;
+      std::cin >> in;
+      *ptr = int(in);
+      break;
+    case '[':
+      if (*ptr == 0)
+      {
+        i = loop_map[i];
+      }
+      break;
+    case ']':
+      if (*ptr != 0)
+      {
+        i = loop_map[i];
+      }
+      break;
     default:
-      std::cout << "The later \"" << current_char << "\" can't using in line   " << ++i << std::endl;
       break;
     }
   }
-  comp.Show_pointer_list(bit_list, max_pointer_value);
+
+  free(anker);
   return 0;
 }
