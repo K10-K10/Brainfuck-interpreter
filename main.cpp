@@ -19,7 +19,6 @@ int main(int argc, char **argv)
     std::cerr << "Cannot open file: " << argv[1] << std::endl;
     return 1;
   }
-
   std::string code, line;
   while (std::getline(file, line))
   {
@@ -27,7 +26,7 @@ int main(int argc, char **argv)
   }
   int *anker = (int *)calloc(30000, sizeof(int));
   int *ptr = anker;
-
+  ptr += 200;
   int code_size = code.size();
 
   std::map<int, int> loop_map;
