@@ -70,11 +70,24 @@ int main(int argc, char **argv)
       ptr--;
       break;
     case '+':
-      (*ptr)++;
+      if (*ptr == 256)
+      {
+        *ptr = 0;
+      }
+      else
+      {
+        (*ptr)++;
+      }
       break;
     case '-':
       if (*ptr > 0)
+      {
         (*ptr)--;
+      }
+      else
+      {
+        *ptr = 256;
+      }
       break;
     case '.':
       std::cout << char(*ptr);
