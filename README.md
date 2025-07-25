@@ -1,4 +1,4 @@
-# Brainmf\*\*k-in-Cxx
+# Brainm\*\*k-interpreter
 
 ## char list
 
@@ -12,6 +12,8 @@
 | `]`  | loop end       |
 | `>`  | right bit sift |
 | `<`  | left bit sift  |
+
+[reference from wikipedia](https://en.wikipedia.org/wiki/Brainfuck)
 
 ## build 
 ```sh
