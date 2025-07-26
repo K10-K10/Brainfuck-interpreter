@@ -1,6 +1,6 @@
-# Brainm\*\*k-interpreter
+# Brainfuck-interpreter
 
-## char list
+## Char list
 
 | char | command        |
 | ---- | -------------- |
@@ -15,25 +15,44 @@
 
 [reference from wikipedia](https://en.wikipedia.org/wiki/Brainfuck)
 
-## build 
-```sh
+## Install
+
+1. Clone this repository.
+
+- ssh
+
+```bash
+git clone git@github.com/K10-K10/Brainfuck-interpreter
+```
+
+- https
+
+```bash
+git clone https://github.com/K10-K10/Brainfuck-interpreter
+```
+
+2. Build
+
+Build code
+
+```bash
 g++ main.cpp -o bf
 ```
 
-cp `bf` in `bin`
-```sh
-sudo cp bf ~/.local/bin/bf
+3. Copy `bf` in `bin`
+
+```bash
+	sudo cp bef ~/.local/bin/bf
 ```
 
-add path in `~/.zshrc`
-```sh
-export PATH="$HOME/.local/bin:$PATH"
+4. Add path in ~/.zshrc
+
+```bash
+	export PATH="$HOME/.local/bin:$PATH"
 ```
 
-Restart terminal and use bf!
+## Run
 
-## run
-
-```sh
+```bash
 bf file.bf
 ```
