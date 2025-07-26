@@ -42,13 +42,13 @@ g++ main.cpp -o bf
 3. Copy `bf` in `bin`
 
 ```bash
-	sudo cp bef ~/.local/bin/bf
+sudo cp bef ~/.local/bin/bf
 ```
 
 4. Add path in ~/.zshrc
 
 ```bash
-	export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
 ## Run
