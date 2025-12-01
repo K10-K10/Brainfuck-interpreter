@@ -26,7 +26,7 @@ int main(int argc, char **argv)
   }
   int *anker = (int *)calloc(30000, sizeof(int));
   int *ptr = anker;
-  ptr += 200;
+  ptr += 15000;
   int code_size = code.size();
 
   std::map<int, int> loop_map;
